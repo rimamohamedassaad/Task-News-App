@@ -24,3 +24,11 @@ export const fetchTopNews = async (
     return [];
   }
 };
+export const searchNews = async (keyword: string) => {
+  const res = await fetch(
+    `${BASE_URL}/search?q=${keyword}&lang=en&apikey=${API_KEY}`
+  );
+
+  const data = await res.json();
+  return data.articles;
+};

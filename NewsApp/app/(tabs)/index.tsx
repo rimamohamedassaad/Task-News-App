@@ -7,13 +7,14 @@ import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Link } from 'expo-router';
-import { fetchTopNews } from '../../services/newsService';
+import { fetchTopNews , searchNews} from '../../services/newsService';
 import Header from '../../components/header'
 import SearchBar from '../../components/SearchBar';
 import Categories from '../../components/categories';
 import NewsItem from '../../components/newsItem';
 import FeaturedNews from '@/components/ImportantNew';
 import SectionHeader from '@/components/sectionHeader';
+
 const categories = [
   "Top Stories",
   "Trending",
@@ -24,6 +25,7 @@ const categories = [
 ];
 export default function HomeScreen() {
     const [search, setSearch] = useState('');
+    const [loading, setLoading] = useState(false);
     const testApi = async () => {
     const data = await fetchTopNews(5);
     setArticles(data);
@@ -31,15 +33,41 @@ export default function HomeScreen() {
     console.log(data);
 
   };
+  const loadNews = async (query?: string) => {
+  try {
+    setLoading(true);
+
+    let data;
+
+    if (query && query.trim().length > 0) {
+      data = await searchNews(query);
+    } else {
+      data = await fetchTopNews(10);
+    }
+
+    setArticles(data);
+  } catch (err) {
+    console.log("Error loading news:", err);
+  } finally {
+    setLoading(false);
+  }
+};
    const [selected, setSelected] = useState("Top Stories");
    const [articles, setArticles] =
     useState<any[]>([]);
-    useEffect(() => {
-    testApi();
-  }, []);
+   useEffect(() => {
+  const delay = setTimeout(() => {
+    if (search.length > 2 || search.length === 0) {
+      loadNews(search);
+    }
+  }, 800); // 800ms debounce
+
+  return () => clearTimeout(delay);
+}, [search]);
   
-  const featured = articles[0];
-  const rest = articles.slice(1);
+  const featured = articles?.length > 0 ? articles[0] : null;
+  const rest =  articles?.length > 1 ? articles?.slice(1) : null;
+  
   const renderItem = ({ item }: any) => {
   return (
     <NewsItem
