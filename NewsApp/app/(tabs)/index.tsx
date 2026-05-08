@@ -10,6 +10,15 @@ import { Link } from 'expo-router';
 import { fetchTopNews } from '../../services/newsService';
 import Header from '../../components/header'
 import SearchBar from '../../components/SearchBar';
+import Categories from '@/components/categories';
+const categories = [
+  "Top Stories",
+  "Trending",
+  "Business",
+  "Sports",
+  "Tech",
+  "Health",
+];
 export default function HomeScreen() {
     const [search, setSearch] = useState('');
     const testApi = async () => {
@@ -17,6 +26,7 @@ export default function HomeScreen() {
     console.log(data);
 
   };
+   const [selected, setSelected] = useState("Top Stories");
    const [articles, setArticles] =
     useState<any[]>([]);
    useEffect(() => {
@@ -43,6 +53,11 @@ export default function HomeScreen() {
             value={search}
             onChange={setSearch}
           />
+          <Categories
+        categories={categories}
+        selected={selected}
+        onSelect={setSelected}
+      />
         </>
       }
 

@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     height: 58,
 
-    marginBottom: 22,
+    marginBottom: 10,
 
     ...SHADOW,
   },
