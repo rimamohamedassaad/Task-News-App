@@ -53,6 +53,7 @@ export default function Categories({
 const styles = StyleSheet.create({
   wrapper: {
     marginVertical: 6,
+    marginBottom:12
   },
 
   container: {

@@ -10,7 +10,8 @@ import { Link } from 'expo-router';
 import { fetchTopNews } from '../../services/newsService';
 import Header from '../../components/header'
 import SearchBar from '../../components/SearchBar';
-import Categories from '@/components/categories';
+import Categories from '../../components/categories';
+import NewsItem from '../../components/newsItem';
 const categories = [
   "Top Stories",
   "Trending",
@@ -23,6 +24,7 @@ export default function HomeScreen() {
     const [search, setSearch] = useState('');
     const testApi = async () => {
     const data = await fetchTopNews(5);
+    setArticles(data);
     console.log(data);
 
   };
@@ -32,6 +34,16 @@ export default function HomeScreen() {
    useEffect(() => {
     testApi();
   }, []);
+  const renderItem = ({ item }: any) => {
+  return (
+    <NewsItem
+      item={item}
+      onPress={() => {
+        console.log("Open article:", item.url);
+      }}
+    />
+  );
+};
   return (
     <FlatList
       data={articles}
@@ -61,7 +73,7 @@ export default function HomeScreen() {
         </>
       }
 
-      renderItem={() => null}
+      renderItem={renderItem}
     />
 
     
