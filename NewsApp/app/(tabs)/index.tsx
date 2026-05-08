@@ -8,7 +8,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Link } from 'expo-router';
 import { fetchTopNews } from '../../services/newsService';
-
+import Header from '../../components/header'
 export default function HomeScreen() {
     const testApi = async () => {
     const data = await fetchTopNews(5);
@@ -19,20 +19,7 @@ export default function HomeScreen() {
     testApi();
   }, []);
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: 'ffffff', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/news.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-     
-    </ParallaxScrollView>
+    <Header />
   );
 }
 
