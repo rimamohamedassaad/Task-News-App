@@ -4,17 +4,23 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-   Text 
+   Text, 
+   ScrollView
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SHADOW } from '../components/themes/theme';
-
+import { Dropdown } from 'react-native-element-dropdown';
 interface Props {
   value: string;
   onChange: (text: string) => void;
   filter: 'keyword' | 'title' | 'author';
   onFilterChange: (value: any) => void;
 }
+const filterData = [
+  { label: 'Keyword', value: 'keyword' },
+  { label: 'Title', value: 'title' },
+  { label: 'Author', value: 'author' },
+];
 
 export default function SearchBar({
  value,
@@ -53,7 +59,10 @@ export default function SearchBar({
 
       {/* FILTER MENU */}
       {open && (
-        <View style={styles.dropdown}>
+      <ScrollView
+    style={styles.dropdown}
+    nestedScrollEnabled
+  >
           <TouchableOpacity>
   <View  style={
     styles.item}>
@@ -84,7 +93,7 @@ export default function SearchBar({
   ]}>Author</Text>
   </View>
 </TouchableOpacity>
-        </View>
+        </ScrollView>
       )}
 
     </View>
@@ -113,7 +122,7 @@ const styles = StyleSheet.create({
 
   dropdown: {
     position: 'absolute',
-    top: 65,
+    top: 50,
     right: 0,
 
     backgroundColor: '#fff',

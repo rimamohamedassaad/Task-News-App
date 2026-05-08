@@ -22,7 +22,7 @@ export default function TabLayout() {
     options={{
       title: 'Home',
       tabBarIcon: ({ color }) => (
-        <IconSymbol size={28} name="house.fill" color={color} />
+        <IconSymbol size={20} name="house.fill" color={color} />
       ),
     }}
   />
@@ -32,35 +32,30 @@ export default function TabLayout() {
     options={{
       title: 'Explore',
       tabBarIcon: ({ color }) => (
-        <IconSymbol size={28} name="paperplane.fill" color={color} />
+        <IconSymbol size={20} name="paperplane.fill" color={color} />
       ),
     }}
   />
 
-  {/* ❤️ NEW: Saved */}
   <Tabs.Screen
     name="saved"
     options={{
       title: 'Saved',
       tabBarIcon: ({ color }) => (
-        <IconSymbol size={28} name="heart.fill" color={color} />
+        <IconSymbol size={20} name="heart.fill" color={color} />
       ),
     }}
   />
-
-  {/* 📈 NEW: Trending */}
   <Tabs.Screen
     name="trending"
     options={{
       title: 'Trending',
       tabBarIcon: ({ color }) => (
-        <IconSymbol size={28} name="chart.bar.fill" color={color} />
+        <IconSymbol size={20} name="chart.bar.fill" color={color} />
       ),
     }}
   />
-
-  {/* 👤 NEW: Profile */}
-  <Tabs.Screen
+  {/* <Tabs.Screen
     name="profile"
     options={{
       title: 'Profile',
@@ -68,7 +63,7 @@ export default function TabLayout() {
         <IconSymbol size={28} name="person.fill" color={color} />
       ),
     }}
-  />
+  /> */}
 </Tabs>
   );
 }
