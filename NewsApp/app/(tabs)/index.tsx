@@ -1,6 +1,6 @@
 import { Image } from 'expo-image';
 import React, { useEffect, useState } from 'react';
-import { FlatList, Platform, StyleSheet } from 'react-native';
+import { FlatList, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { HelloWave } from '@/components/hello-wave';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
@@ -12,6 +12,8 @@ import Header from '../../components/header'
 import SearchBar from '../../components/SearchBar';
 import Categories from '../../components/categories';
 import NewsItem from '../../components/newsItem';
+import FeaturedNews from '@/components/ImportantNew';
+import SectionHeader from '@/components/sectionHeader';
 const categories = [
   "Top Stories",
   "Trending",
@@ -25,15 +27,19 @@ export default function HomeScreen() {
     const testApi = async () => {
     const data = await fetchTopNews(5);
     setArticles(data);
+
     console.log(data);
 
   };
    const [selected, setSelected] = useState("Top Stories");
    const [articles, setArticles] =
     useState<any[]>([]);
-   useEffect(() => {
+    useEffect(() => {
     testApi();
   }, []);
+  
+  const featured = articles[0];
+  const rest = articles.slice(1);
   const renderItem = ({ item }: any) => {
   return (
     <NewsItem
@@ -46,7 +52,7 @@ export default function HomeScreen() {
 };
   return (
     <FlatList
-      data={articles}
+      data={rest}
 
       keyExtractor={(_, index) =>
         index.toString()
@@ -70,6 +76,17 @@ export default function HomeScreen() {
         selected={selected}
         onSelect={setSelected}
       />
+       {featured && (
+            <FeaturedNews
+             item={featured}
+             onSavePress={() => console.log("save featured")}
+             onPress={() => console.log("open featured")}
+        />
+          )}
+          <SectionHeader
+           title="News For You"
+           onPressAction={() => console.log("See all pressed")}
+          />
         </>
       }
 

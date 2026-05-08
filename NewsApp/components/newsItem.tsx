@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginBottom: 12,
     alignItems: "center",
+    marginHorizontal:10
   },
 
   image: {
