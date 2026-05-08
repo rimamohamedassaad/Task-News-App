@@ -1,6 +1,6 @@
 import { Image } from 'expo-image';
 import React, { useEffect, useState } from 'react';
-import { FlatList, Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { FlatList, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { HelloWave } from '@/components/hello-wave';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
@@ -157,21 +157,11 @@ export default function HomeScreen() {
   );
 };
   return (
-    <FlatList
-      data={rest}
-
-      keyExtractor={(_, index) =>
-        index.toString()
-      }
-      contentContainerStyle={{
-      paddingHorizontal: 16,
-      paddingTop: 16,
-      paddingBottom: 24,
-    }}
-
-      ListHeaderComponent={
-        <>
-          <Header />
+     <ThemedView style={{ flex: 1, backgroundColor: '#f7f2f2' }}>
+      
+      {/* FIXED CONTENT */}
+      <View style={styles.fixedContainer}>
+         <Header />
 
           <SearchBar
             value={search}
@@ -185,6 +175,22 @@ export default function HomeScreen() {
         selected={selected}
         onSelect={setSelected}
       />
+      </View>
+    <FlatList
+      data={rest}
+
+      keyExtractor={(_, index) =>
+        index.toString()
+      }
+      contentContainerStyle={{
+      backgroundColor:'#e4dada',
+      paddingHorizontal: 16,
+      paddingTop: 16,
+      paddingBottom: 24,
+    }}
+
+      ListHeaderComponent={
+        <>
        {featured && (
             <FeaturedNews
              item={featured}
@@ -201,6 +207,7 @@ export default function HomeScreen() {
 
       renderItem={renderItem}
     />
+    </ThemedView>
 
     
   );
@@ -211,6 +218,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+  },
+   fixedContainer: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    backgroundColor: '#e4dbdb',
   },
   stepContainer: {
     gap: 8,
