@@ -1,4 +1,5 @@
 import { Image } from 'expo-image';
+import React, { useEffect } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 
 import { HelloWave } from '@/components/hello-wave';
@@ -6,8 +7,17 @@ import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Link } from 'expo-router';
+import { fetchTopNews } from '../../services/newsService';
 
 export default function HomeScreen() {
+    const testApi = async () => {
+    const data = await fetchTopNews(5);
+    console.log(data);
+
+  };
+   useEffect(() => {
+    testApi();
+  }, []);
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: 'ffffff', dark: '#1D3D47' }}
