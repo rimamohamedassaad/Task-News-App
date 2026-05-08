@@ -101,7 +101,7 @@ const categories = [
 export default function HomeScreen() {
     const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(false);
-    const [filter, setFilter] = useState<'keyword' | 'title' | 'author'>('keyword');
+    const [filter, setFilter] = useState< 'title' | 'keyword'  | 'author'>('title');
     const testApi = async () => {
     const data = MOCK_NEWS;
     setArticles(data);
@@ -118,8 +118,8 @@ export default function HomeScreen() {
     if (query && query.trim().length > 0) {
       data = await searchNews(query);
     } else {
-      // data = await fetchTopNews(10);
-    data  = MOCK_NEWS
+      data = await fetchTopNews(10);
+  //  data  = MOCK_NEWS
 
     }
 

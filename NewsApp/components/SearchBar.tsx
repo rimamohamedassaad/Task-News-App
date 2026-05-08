@@ -9,18 +9,13 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SHADOW } from '../components/themes/theme';
-import { Dropdown } from 'react-native-element-dropdown';
+
 interface Props {
   value: string;
   onChange: (text: string) => void;
   filter: 'keyword' | 'title' | 'author';
   onFilterChange: (value: any) => void;
 }
-const filterData = [
-  { label: 'Keyword', value: 'keyword' },
-  { label: 'Title', value: 'title' },
-  { label: 'Author', value: 'author' },
-];
 
 export default function SearchBar({
  value,
@@ -59,11 +54,9 @@ export default function SearchBar({
 
       {/* FILTER MENU */}
       {open && (
-      <ScrollView
-    style={styles.dropdown}
-    nestedScrollEnabled
-  >
-          <TouchableOpacity>
+       <View style={styles.dropdownWrapper}>
+    <ScrollView style={styles.dropdown}  nestedScrollEnabled>
+          {/* <TouchableOpacity>
   <View  style={
     styles.item}>
     <Ionicons name="search-outline" size={18} />
@@ -72,7 +65,7 @@ export default function SearchBar({
     filter === 'keyword' && styles.activeItem,
   ]}>Keyword</Text>
   </View>
-</TouchableOpacity>
+</TouchableOpacity> */}
 
 <TouchableOpacity>
   <View style={styles.item}>
@@ -93,7 +86,8 @@ export default function SearchBar({
   ]}>Author</Text>
   </View>
 </TouchableOpacity>
-        </ScrollView>
+</ScrollView>
+        </View>
       )}
 
     </View>
@@ -120,28 +114,25 @@ const styles = StyleSheet.create({
     color: COLORS.text,
   },
 
-  dropdown: {
-    position: 'absolute',
-    top: 50,
-    right: 0,
+ dropdownWrapper: {
+  position: 'absolute',
+  top: 50, // adjust based on your input/button
+ 
+  right: 0,
+  zIndex: 1000,
+  elevation: 10, // for Android
+},
 
-    backgroundColor: '#fff',
-    borderRadius: 14,
-
-    width: 110,
-
-    paddingVertical: 8,
-
-    // shadow (iOS)
-    shadowColor: '#000',
-    shadowOpacity: 0.12,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 6 },
-
-    // Android
-    elevation: 6,
-  },
-
+dropdown: {
+  maxHeight: 200, // important so it doesn't grow forever
+  backgroundColor: 'white',
+  borderRadius: 8,
+  overflow: 'hidden',
+  shadowColor: '#000',
+  shadowOpacity: 0.1,
+  shadowRadius: 10,
+  elevation: 5,
+},
   item: {
     flexDirection: 'row',
     alignItems: 'center',
