@@ -1,6 +1,6 @@
 import { Image } from 'expo-image';
-import React, { useEffect } from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, Platform, StyleSheet } from 'react-native';
 
 import { HelloWave } from '@/components/hello-wave';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
@@ -9,17 +9,47 @@ import { ThemedView } from '@/components/themed-view';
 import { Link } from 'expo-router';
 import { fetchTopNews } from '../../services/newsService';
 import Header from '../../components/header'
+import SearchBar from '../../components/SearchBar';
 export default function HomeScreen() {
+    const [search, setSearch] = useState('');
     const testApi = async () => {
     const data = await fetchTopNews(5);
     console.log(data);
 
   };
+   const [articles, setArticles] =
+    useState<any[]>([]);
    useEffect(() => {
     testApi();
   }, []);
   return (
-    <Header />
+    <FlatList
+      data={articles}
+
+      keyExtractor={(_, index) =>
+        index.toString()
+      }
+      contentContainerStyle={{
+      paddingHorizontal: 16,
+      paddingTop: 16,
+      paddingBottom: 24,
+    }}
+
+      ListHeaderComponent={
+        <>
+          <Header />
+
+          <SearchBar
+            value={search}
+            onChange={setSearch}
+          />
+        </>
+      }
+
+      renderItem={() => null}
+    />
+
+    
   );
 }
 

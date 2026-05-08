@@ -74,12 +74,12 @@ export default function Header() {
 const styles = StyleSheet.create({
 
   container: {
-    marginTop: 15,
-    marginBottom: 25,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
+    marginTop: 10,
+    marginBottom: 15,
+    // paddingHorizontal: 16,
+    // paddingVertical: 14,
 
-    backgroundColor: '#FFFFFF',
+    // backgroundColor: '#FFFFFF',
 
     flexDirection: 'row',
     alignItems: 'center',
