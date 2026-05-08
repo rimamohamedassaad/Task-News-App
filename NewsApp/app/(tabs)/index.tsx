@@ -14,7 +14,82 @@ import Categories from '../../components/categories';
 import NewsItem from '../../components/newsItem';
 import FeaturedNews from '@/components/ImportantNew';
 import SectionHeader from '@/components/sectionHeader';
+export const MOCK_NEWS = [
+  {
+    title: "Apple Announces New AI Features for iPhone",
+    description:
+      "Apple revealed a new set of AI-powered tools coming to iOS this year.",
+    content:
+      "During the annual keynote, Apple introduced advanced AI features including smart summaries, voice improvements, and image generation.",
+    url: "https://example.com/apple-ai",
+    image:
+      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",
+    publishedAt: "2026-05-08T09:30:00Z",
+    source: {
+      name: "TechCrunch",
+    },
+  },
 
+  {
+    title: "Tesla Opens New Gigafactory in Europe",
+    description:
+      "Tesla expands its manufacturing footprint with a new European plant.",
+    content:
+      "The new factory is expected to produce over 500,000 vehicles annually.",
+    url: "https://example.com/tesla-factory",
+    image:
+      "https://images.unsplash.com/photo-1560958089-b8a1929cea89",
+    publishedAt: "2026-05-07T14:20:00Z",
+    source: {
+      name: "Reuters",
+    },
+  },
+
+  {
+    title: "Champions League Final Ends in Dramatic Penalties",
+    description:
+      "An unforgettable night as the final was decided by penalties.",
+    content:
+      "Fans around the world watched one of the most exciting finals in recent years.",
+    url: "https://example.com/champions-league",
+    image:
+      "https://images.unsplash.com/photo-1574629810360-7efbbe195018",
+    publishedAt: "2026-05-06T21:00:00Z",
+    source: {
+      name: "ESPN",
+    },
+  },
+
+  {
+    title: "New Study Shows Benefits of Daily Walking",
+    description:
+      "Researchers found that walking 30 minutes daily improves heart health.",
+    content:
+      "Health experts encourage simple daily activity to reduce stress and improve fitness.",
+    url: "https://example.com/walking-health",
+    image:
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438",
+    publishedAt: "2026-05-05T11:15:00Z",
+    source: {
+      name: "Healthline",
+    },
+  },
+
+  {
+    title: "Google Introduces Faster Android Updates",
+    description:
+      "Google promises quicker rollout of Android security patches.",
+    content:
+      "The company says the new system architecture will reduce delays for manufacturers.",
+    url: "https://example.com/android-updates",
+    image:
+      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",
+    publishedAt: "2026-05-04T08:45:00Z",
+    source: {
+      name: "The Verge",
+    },
+  },
+];
 const categories = [
   "Top Stories",
   "Trending",
@@ -26,8 +101,9 @@ const categories = [
 export default function HomeScreen() {
     const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(false);
+    const [filter, setFilter] = useState<'keyword' | 'title' | 'author'>('keyword');
     const testApi = async () => {
-    const data = await fetchTopNews(5);
+    const data = MOCK_NEWS;
     setArticles(data);
 
     console.log(data);
@@ -42,7 +118,9 @@ export default function HomeScreen() {
     if (query && query.trim().length > 0) {
       data = await searchNews(query);
     } else {
-      data = await fetchTopNews(10);
+      // data = await fetchTopNews(10);
+    data  = MOCK_NEWS
+
     }
 
     setArticles(data);
@@ -98,7 +176,10 @@ export default function HomeScreen() {
           <SearchBar
             value={search}
             onChange={setSearch}
-          />
+            filter={filter}
+             onFilterChange={function (value: any): void {
+              throw new Error('Function not implemented.');
+            } }          />
           <Categories
         categories={categories}
         selected={selected}
